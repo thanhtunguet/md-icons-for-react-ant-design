@@ -1,0 +1,21 @@
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+.icons {
+  margin: auto;
+  width: 100%;
+  overflow-wrap: normal;
+
+  .icon {
+    display: inline-block;
+    width: 80px;
+
+    svg {
+      border: 1px solid $secondary;
+      font-size: 48px;
+      margin: 1rem 1rem;
+      cursor: pointer;
+    }
+  }
+}
