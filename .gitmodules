@@ -1,3 +1,6 @@
 [submodule "material-design-icons"]
 	path = material-design-icons
 	url = https://github.com/thanhtunguet/material-design-icons.git
+[submodule "build"]
+	path = build
+	url = https://github.com/thanhtunguet/md-icons-for-react-ant-design.thanhtunguet.info.git
