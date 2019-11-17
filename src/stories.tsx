@@ -1,12 +1,11 @@
 import Icon from '@ant-design/icons-react/lib/components/Icon';
-import {IconDefinition} from '@ant-design/icons-svg/lib/types';
-import {storiesOf} from '@storybook/react';
+import { IconDefinition } from '@ant-design/icons-svg/lib/types';
+import { storiesOf } from '@storybook/react';
 import Modal from 'antd/lib/modal';
 import Tooltip from 'antd/lib/tooltip';
-import * as React from 'react';
-import {useState} from 'react';
-import {Col, Container, Row} from 'reactstrap';
-import {v4} from 'uuid';
+import React, { useState } from 'react';
+import { Col, Container, Row } from 'reactstrap';
+import { v4 } from 'uuid';
 import * as icons from './public';
 
 interface IconStoryProps {
@@ -35,7 +34,7 @@ function IconStory(props: IconStoryProps) {
             return (
               <div className="icon" key={name}>
                 <Tooltip title={name}>
-                  <Icon type={icon} onClick={handleClick(icon)}/>
+                  <Icon type={icon} onClick={handleClick(icon)} />
                 </Tooltip>
               </div>
             );
@@ -80,12 +79,12 @@ export function IconStories() {
   return (
     <Container fluid>
       {iconRows.map((iconRow) => (
-        <IconStory icons={iconRow} key={v4()} onClick={handleSelectIcon}/>
+        <IconStory icons={iconRow} key={v4()} onClick={handleSelectIcon} />
       ))}
       <Modal visible={!!icon}
-             title={icon && icon.name}
-             width={900}
-             onCancel={handleCancel}
+        title={icon && icon.name}
+        width={900}
+        onCancel={handleCancel}
       >
         {icon && (
           <>
