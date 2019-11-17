@@ -1,7 +1,10 @@
 node_modules/
 dist/
+build/
 icons/*
 yarn-error.log
 yarn.lock
 package-lock.json
 .idea/
+.vs/
+.vscode/

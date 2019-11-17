@@ -21,15 +21,9 @@
     ],
     "moduleResolution": "node"
   },
-  "include": [
-    "src/",
-    "icons/",
-    "src/public.tsx",
-    "package.json"
-  ],
   "exclude": [
-    "node_modules/**/*",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx"
+    "./node_modules/**/*",
+    "./src/**/*.test.ts",
+    "./src/**/*.test.tsx"
   ]
 }

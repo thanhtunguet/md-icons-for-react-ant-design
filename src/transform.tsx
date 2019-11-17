@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 import {execSync} from 'child_process';
 import {readFileSync, writeFileSync} from 'fs';
 import {compile} from 'handlebars';
-import {kebabCase} from 'lodash';
+import {camelCase, kebabCase} from 'lodash';
 import {pascalCase} from './helpers/pascal-case';
 
 const echoCommand: string = 'echo material-design-icons/*/svg/production/ic_*_*px.svg';
@@ -50,49 +50,68 @@ const antIcons: IconDefinition[] = Object
     let children = [];
     $('path').map(function () {
       const path = $(this);
+      const attrs = {};
+      Object
+        .entries(path.attr())
+        .forEach(([key, value]) => {
+          attrs[camelCase(key)] = value;
+        });
       children = [
         ...children,
         {
           tag: 'path',
-          attrs: path.attr(),
+          attrs,
         },
       ];
     });
+    const attrs = {};
+    Object
+      .entries(svg.attr())
+      .forEach(([key, value]) => {
+        attrs[camelCase(key)] = value;
+      });
     return {
-      name: pascalCase(name),
+      name,
       theme: 'outline',
       icon: {
         tag: 'svg',
-        attrs: svg.attr(),
+        attrs,
         children,
       },
     };
   });
 
-const compileIcon = compile(readFileSync('templates/icon.hbs', execOptions));
-const compilePublicAPIs = compile(readFileSync('templates/public.hbs', execOptions));
+const compileIcon = compile(readFileSync('./templates/icon.hbs', execOptions));
+const compilePublicAPIs = compile(readFileSync('./templates/public.hbs', execOptions));
 
 antIcons.forEach((icon: IconDefinition) => {
   const {name} = icon;
   const content = compileIcon({
     icon: JSON.stringify(icon, null, 2),
-    name,
+    name: pascalCase(name),
   });
   const filename: string = `icons/${name}.ts`;
   // tslint:disable-next-line:no-console
   console.info('Writing file %s', filename);
   writeFileSync(`icons/${name}.ts`, content);
-  // tslint:disable-next-line:no-console
-  console.info('Linting file %s', filename);
-  try {
-    execSync(`yarn tslint icons/${name}.ts --fix`);
-  } catch (error) {
-    // tslint:disable-next-line:no-console
-    console.error('Linting file % failed', filename);
-  }
 });
 
-const content: string = compilePublicAPIs({icons: antIcons});
+const content: string = compilePublicAPIs({
+  icons: antIcons.map((icon: IconDefinition) => ({
+    ...icon,
+    pascalCaseName: pascalCase(icon.name),
+  })),
+});
 // tslint:disable-next-line:no-console
 console.info('Writing public exports');
 writeFileSync('src/public.tsx', content);
+
+// tslint:disable-next-line:no-console
+console.error('Linting files');
+try {
+  execSync(`yarn tslint icons/**.ts --fix`);
+  execSync(`yarn tslint src/public.tsx --fix`);
+} catch (error) {
+  // tslint:disable-next-line:no-console
+  console.error('Linting file % failed');
+}

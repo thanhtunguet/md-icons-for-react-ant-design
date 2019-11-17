@@ -1,12 +1,16 @@
 import Icon from '@ant-design/icons-react/lib/components/Icon';
-import { IconDefinition } from '@ant-design/icons-svg/lib/types';
-import { storiesOf } from '@storybook/react';
+import {IconDefinition} from '@ant-design/icons-svg/lib/types';
+import {storiesOf} from '@storybook/react';
 import Modal from 'antd/lib/modal';
 import Tooltip from 'antd/lib/tooltip';
-import React, { useState } from 'react';
-import { Col, Container, Row } from 'reactstrap';
-import { v4 } from 'uuid';
+import Typography from 'antd/lib/typography';
+import React, {useState} from 'react';
+import {Col, Container, Row} from 'reactstrap';
+import {v4} from 'uuid';
+import {pascalCase} from './helpers/pascal-case';
 import * as icons from './public';
+
+const {Title} = Typography;
 
 interface IconStoryProps {
   icons: Array<[string, IconDefinition]>;
@@ -34,7 +38,7 @@ function IconStory(props: IconStoryProps) {
             return (
               <div className="icon" key={name}>
                 <Tooltip title={name}>
-                  <Icon type={icon} onClick={handleClick(icon)} />
+                  <Icon type={icon} onClick={handleClick(icon)}/>
                 </Tooltip>
               </div>
             );
@@ -66,41 +70,61 @@ export function IconStories() {
     (icon: IconDefinition) => {
       setIcon(icon);
     },
-    [],
+    [setIcon],
   );
 
   const handleCancel = React.useCallback(
     () => {
       setIcon(null);
     },
-    [],
+    [setIcon],
+  );
+
+  const modal = React.useMemo(
+    () => {
+      const pascalCaseName: string = icon ? pascalCase(icon.name) : null;
+      return (
+        <Modal visible={!!icon}
+               title={icon && icon.name}
+               width={900}
+               onCancel={handleCancel}
+        >
+          {icon && (
+            <div className="d-flex flex-column">
+              <code className="mb-4">
+                {`import ${pascalCaseName} from 'md-icons-for-react-ant-design/icons/${icon.name}';`}
+              </code>
+              <code>
+                {`<Icon type={${pascalCaseName}}/>`}
+              </code>
+            </div>
+          )}
+        </Modal>
+      );
+    },
+    [icon, handleCancel],
+  );
+
+  const icons = React.useMemo(
+    () => {
+      return iconRows.map((iconRow) => (
+        <IconStory icons={iconRow} key={v4()} onClick={handleSelectIcon}/>
+      ));
+    },
+    [handleSelectIcon],
   );
 
   return (
     <Container fluid>
-      {iconRows.map((iconRow) => (
-        <IconStory icons={iconRow} key={v4()} onClick={handleSelectIcon} />
-      ))}
-      <Modal visible={!!icon}
-        title={icon && icon.name}
-        width={900}
-        onCancel={handleCancel}
-      >
-        {icon && (
-          <>
-            <div>
-              <code>
-                {`import ${icon.name} from 'md-icons-for-react-ant-design/icons/${icon.name}';`}
-              </code>
-            </div>
-            <div>
-              <code>
-                {`<Icon type={${icon.name}/>`}
-              </code>
-            </div>
-          </>
-        )}
-      </Modal>
+      <Row>
+        <Col>
+          <Title>
+            Material Design Icons for React Ant Design
+          </Title>
+        </Col>
+      </Row>
+      {icons}
+      {modal}
     </Container>
   );
 }
