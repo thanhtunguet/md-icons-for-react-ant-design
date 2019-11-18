@@ -63,7 +63,7 @@
     "serve": "nodemon ./dist/lib/server.js",
     "live": "node ./dist/lib/server.js",
     "start": "run-p watch:dev watch:css serve",
-    "build": "run-s build:lib build:css build:dev",
+    "build": "run-s build:dev tranform build:lib build:css build:dev",
     "transform": "node dist/lib/cli.js transform",
     "build:docs": "node dist/lib/cli.js build:docs"
   }
