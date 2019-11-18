@@ -1,8 +1,11 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "isolatedModules": true
+  },
   "include": [
-    "./src/public.tsx",
-    "icons/**/*",
-    "package.json"
+    "./src/public.ts",
+    "./icons/*",
+    "./package.json"
   ]
 }

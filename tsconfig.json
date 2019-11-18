@@ -1,25 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "allowJs": false,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "resolveJsonModule": true,
     "declaration": true,
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
     "sourceMap": true,
     "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "removeComments": false,
+    "disableSizeLimit": false,
+    "listFiles": true,
     "typeRoots": [
       "node_modules/@types"
     ],
-    "moduleResolution": "node"
+    "lib": [
+      "dom",
+      "esnext"
+    ]
   },
   "exclude": [
     "./node_modules/**/*",

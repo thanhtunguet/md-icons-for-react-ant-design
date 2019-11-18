@@ -1,3 +1,7 @@
+console.warn('You are using the whole icon package. This will increase your bundle size, not recommended to use for performance reason.');
+console.warn('Please import only the icons you need');
+
+export {default as Icon} from '@ant-design/icons-react';
 {{#each icons}}
 export { default as {{this.pascalCaseName}} } from '../icons/{{this.name}}';
 {{/each}}

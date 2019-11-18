@@ -1,7 +1,7 @@
-const server = require("./webpack.node");
-const client = require("./webpack.web");
+const node = require("./webpack.node");
+const web = require("./webpack.web");
 
 module.exports = [
-  server,
-  client,
+  node,
+  web,
 ];

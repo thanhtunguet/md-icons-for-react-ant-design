@@ -5,11 +5,11 @@ const webpackNodeExternals = require("webpack-node-externals");
 module.exports = {
   ...common,
   entry: {
-    transform: "./src/transform.tsx",
-    "build-docs": "./src/build-docs.tsx",
+    cli: "./src/cli.tsx",
+    server: "./src/server.ts"
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist", "lib"),
     filename: "[name].js",
   },
   target: "node",

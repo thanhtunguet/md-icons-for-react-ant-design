@@ -18,8 +18,7 @@ module.exports = {
     ],
   },
   entry: {
-    client: "./src/client.tsx",
-    styles: "./src/styles.tsx",
+    client: "./src/docs/client.tsx",
   },
   output: {
     path: path.resolve(__dirname, "docs", "js"),

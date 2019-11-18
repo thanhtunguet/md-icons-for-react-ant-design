@@ -1,10 +1,16 @@
+const {
+  NODE_ENV = "development",
+} = process.env;
+
 module.exports = {
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: [
-          "awesome-typescript-loader",
+          {
+            loader: "awesome-typescript-loader",
+          },
         ],
       },
     ],
@@ -12,7 +18,7 @@ module.exports = {
   resolve: {
     modules: [
       "node_modules/",
-      "src/"
+      "src/",
     ],
     extensions: [
       ".ts",
@@ -24,5 +30,5 @@ module.exports = {
     ],
   },
   devtool: "source-map",
-  mode: process.env.NODE_ENV,
+  mode: NODE_ENV,
 };

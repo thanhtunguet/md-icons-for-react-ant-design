@@ -1,19 +1,17 @@
 {
   "name": "md-icons-for-react-ant-design",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Material Design Icons for React Ant Design",
-  "main": "./src/public.js",
   "repository": "https://github.com/thanhtunguet/material-design-icons-for-react-ant-design",
   "author": "thanhtunguet <ht@thanhtunguet.info>",
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "@ant-design/icons-react": "^2.0.1"
+    "@ant-design/icons-react": "^2.0.1",
+    "@ant-design/icons-svg": "^4.0.0-alpha.0",
+    "antd": "^3.25.2"
   },
   "devDependencies": {
-    "@ant-design/icons-svg": "^4.0.0-alpha.0",
-    "@storybook/cli": "^5.2.6",
-    "@storybook/react": "^5.2.6",
     "@types/bootstrap": "^4.3.1",
     "@types/cheerio": "^0.22.14",
     "@types/codemirror": "^0.0.80",
@@ -23,12 +21,12 @@
     "@types/node": "^12.12.8",
     "@types/reactstrap": "^8.0.6",
     "@types/uuid": "^3.4.6",
-    "antd": "^3.25.2",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "bootstrap": "^4.3.1",
     "cheerio": "^1.0.0-rc.3",
     "codemirror": "^5.49.2",
+    "commander": "^4.0.1",
     "copy-to-clipboard": "^3.2.0",
     "css-loader": "^3.2.0",
     "express": "^4.17.1",
@@ -38,9 +36,10 @@
     "lodash": "^4.17.15",
     "node-sass": "^4.13.0",
     "node-sass-chokidar": "^1.4.0",
+    "nodemon": "^1.19.4",
+    "npm-run-all": "^4.1.5",
     "react": "^16.12.0",
     "react-codemirror2": "^6.0.0",
-    "react-docgen-typescript-loader": "^3.4.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.2.0",
     "react-virtual-list": "^2.3.0",
@@ -58,11 +57,15 @@
   "scripts": {
     "watch:dev": "NODE_ENV=development webpack --watch",
     "build:dev": "NODE_ENV=production webpack",
+    "watch:css": "node-sass-chokidar ./src/styles/ -o ./docs/css/ --watch --recursive",
+    "build:css": "node-sass-chokidar ./src/styles/ -o ./docs/css/ --build --recursive",
     "watch:lib": "tsc -w -p tsconfig.lib.json",
     "build:lib": "tsc -p tsconfig.lib.json",
-    "transform": "node dist/src/transform.js",
-    "docs": "node server.js",
-    "storybook": "start-storybook -p 9009",
-    "build-storybook": "build-storybook -o build/"
+    "serve": "nodemon ./dist/lib/server.js",
+    "live": "node ./dist/lib/server.js",
+    "start": "run-p watch:dev watch:css serve",
+    "build": "run-s build:lib build:css build:dev",
+    "transform": "node dist/lib/cli.js transform",
+    "build:docs": "node dist/lib/cli.js build:docs"
   }
 }

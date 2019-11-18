@@ -1,5 +1,4 @@
 node_modules/
-dist/
 build/
 icons/*
 yarn-error.log
@@ -8,3 +7,4 @@ package-lock.json
 .idea/
 .vs/
 .vscode/
+/docs
