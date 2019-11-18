@@ -14,7 +14,7 @@ const { Title } = Typography;
 
 const codeMirrorOptions = {
   lineNumber: true,
-  theme: 'material-darker',
+  theme: 'material',
   mode: 'javascript',
   readOnly: true,
 };
