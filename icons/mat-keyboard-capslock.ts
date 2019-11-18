@@ -1,0 +1,26 @@
+/* tslint:disable:max-line-length */
+import { IconDefinition } from '@ant-design/icons-svg/lib/types';
+
+const MatKeyboardCapslock: IconDefinition = {
+  name: 'mat-keyboard-capslock',
+  theme: 'outline',
+  icon: {
+    tag: 'svg',
+    attrs: {
+      xmlns: 'http://www.w3.org/2000/svg',
+      width: '48',
+      height: '48',
+      viewBox: '0 0 48 48',
+    },
+    children: [
+      {
+        tag: 'path',
+        attrs: {
+          d: 'M24 16.83L33.17 26 36 23.17l-12-12-12 12L14.83 26 24 16.83zM12 36h24v-4H12v4z',
+        },
+      },
+    ],
+  },
+};
+
+export default MatKeyboardCapslock;
