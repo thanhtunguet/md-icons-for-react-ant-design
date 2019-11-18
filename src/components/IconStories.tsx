@@ -1,17 +1,16 @@
-import {IconDefinition} from '@ant-design/icons-svg/lib/types';
+import { IconDefinition } from '@ant-design/icons-svg/lib/types';
 import Modal from 'antd/lib/modal';
 import Typography from 'antd/lib/typography';
-import 'codemirror/mode/javascript/javascript';
 import React from 'react';
-import {Controlled as CodeMirror} from 'react-codemirror2';
-import {Col, Container, Row} from 'reactstrap';
-import {v4} from 'uuid';
-import {pascalCase} from '../helpers/pascal-case';
-import {buildIconSample} from '../helpers/sample';
+import { Controlled as CodeMirror } from 'react-codemirror2';
+import { Col, Container, Row } from 'reactstrap';
+import { v4 } from 'uuid';
+import { pascalCase } from '../helpers/pascal-case';
+import { buildIconSample } from '../helpers/sample';
 import * as icons from '../public';
 import IconStory from './IconStory';
 
-const {Title} = Typography;
+const { Title } = Typography;
 
 const codeMirrorOptions = {
   lineNumber: true,
@@ -55,14 +54,14 @@ function IconStories() {
       const pascalCaseName: string = icon ? pascalCase(icon.name) : null;
       return (
         <Modal visible={!!icon}
-               title={icon && `Icon usage: ${icon.name}`}
-               width={900}
-               onCancel={handleCancel}
-               onOk={handleCancel}>
+          title={icon && `Icon usage: ${icon.name}`}
+          width={900}
+          onCancel={handleCancel}
+          onOk={handleCancel}>
           {icon && (
             <CodeMirror value={buildIconSample(pascalCaseName, icon)}
-                        onBeforeChange={null}
-                        options={codeMirrorOptions}
+              onBeforeChange={null}
+              options={codeMirrorOptions}
             />
           )}
         </Modal>
@@ -74,7 +73,7 @@ function IconStories() {
   const icons = React.useMemo(
     () => {
       return iconRows.map((iconRow) => (
-        <IconStory icons={iconRow} key={v4()} onClick={handleSelectIcon}/>
+        <IconStory icons={iconRow} key={v4()} onClick={handleSelectIcon} />
       ));
     },
     [handleSelectIcon],
