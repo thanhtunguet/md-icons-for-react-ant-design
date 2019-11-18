@@ -24,11 +24,11 @@ REPO=`git config remote.origin.url`;
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:};
 SHA=`git rev-parse --verify HEAD`;
 
-# Clone the existing gh-pages for this repo into dist/
+# Clone the existing gh-pages for this repo into travis-build/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
 # Delete all existing contents except .git (we will re-create them)
-git clone $REPO dist/
-cd dist/
+git clone $REPO travis-build/
+cd travis-build/
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 find -maxdepth 1 ! -name .git ! -name . ! -name CNAME | xargs rm -rf
 cd ..
@@ -37,7 +37,7 @@ cd ..
 compile
 
 # Now let's go have some fun with the cloned repo
-cd dist/
+cd travis-build/
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 

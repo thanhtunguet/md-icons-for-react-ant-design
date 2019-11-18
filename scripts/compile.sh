@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
 yarn build
-cp -r build/* dist/
+yarn build:docs
+cp -r docs/* travis-build/
