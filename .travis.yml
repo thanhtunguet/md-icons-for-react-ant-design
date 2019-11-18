@@ -1,3 +1,10 @@
+language: node_js
+node_js:
+  - stable
+script: bash ./deploy.sh
 before_install:
-- openssl aes-256-cbc -K $encrypted_0c59e81cd566_key -iv $encrypted_0c59e81cd566_iv
-  -in deploy_key.enc -out deploy_key -d
+  - openssl aes-256-cbc -K $encrypted_0c59e81cd566_key -iv $encrypted_0c59e81cd566_iv -in deploy_key.enc -out deploy_key -d
+env:
+  global:
+    - ENCRYPTION_LABEL: Build gh-pages
+    - COMMIT_AUTHOR_EMAIL: ht@thanhtunguet.info
